@@ -14,6 +14,8 @@ function App() {
   };
 
   useEffect(() => {
+
+    handleClick()
     const newIngredients = [];
     for (let i = 1; i <= 15; i++) {
       const ingredient = cocktail[`strIngredient${i}`];
@@ -23,7 +25,7 @@ function App() {
       }
     }
     setIngredients(newIngredients);
-  }, [cocktail]);
+  },[]);
 
   return (
     <div className="card">
