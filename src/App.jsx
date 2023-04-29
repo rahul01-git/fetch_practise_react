@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
+import Cocktail from "./component/Cocktail";
+import Button from "./component/Button";
 
 function App() {
   const [cocktail, setCocktail] = useState([]);
   const [ingredients, setIngredients] = useState([]);
-
 
   const handleClick = () => {
     fetch("https://www.thecocktaildb.com/api/json/v1/1/random.php")
       .then((response) => response.json())
       .then((data) => setCocktail(data.drinks[0]));
   };
-
 
   useEffect(() => {
     const newIngredients = [];
@@ -24,17 +24,11 @@ function App() {
     }
     setIngredients(newIngredients);
   }, [cocktail]);
+
   return (
-    <div>
-      <button onClick={handleClick}>New</button>
-      <p>Name: {cocktail.strDrink}</p>
-      <p>Ingredients: </p>
-      <ul>
-        {ingredients.map((ing,idx)=><li key={idx}>{ing}</li>)}
-      </ul>
-      <p>Image:</p>
-      <img src={cocktail.strDrinkThumb} style={{ width: 200 }} alt="" />
-      <p>Recipe: {cocktail.strInstructions}</p>
+    <div className="card">
+      <Button handleClick={handleClick} />
+      {cocktail && <Cocktail cocktail={cocktail} ingredients={ingredients} />}
     </div>
   );
 }
